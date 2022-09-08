@@ -1,0 +1,33 @@
+#include "Employee.h"
+
+int Employee::ID = 0;
+
+Employee::Employee(
+    int id, 
+    int branch_id, 
+    std::string login, 
+    std::string passhash, 
+    std::string name, 
+    std::string phone, 
+    Address address, 
+    std::string email, 
+    time_t registration_date,
+    std::string position
+):
+    Person(id, branch_id, login, passhash, name, phone, address, email, registration_date),
+    position(position) 
+{}
+
+bool Employee::operator<(const Employee &e) const {
+    return (id < e.id);
+}
+
+void Employee::setNextID(int id){
+    Employee::ID = id;
+}
+void Employee::print() const {
+    std::cout 
+        << id << "\n"
+        << login << std::endl;
+}
+

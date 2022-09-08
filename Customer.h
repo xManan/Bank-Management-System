@@ -8,9 +8,10 @@
 
 class Customer: public Person {
     private:
+        std::set<Account> accounts;
+        std::set<Loan> loans;
+
         static int ID;
-        std::set<Account> accounts; 
-        std::set<Loan> loans; 
 };
 
 #endif

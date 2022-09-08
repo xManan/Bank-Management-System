@@ -1,15 +1,32 @@
 #include <iostream>
+#include "Bank.h"
 #include "Menu.h"
 
 using namespace std;
 
 int main(int argc, char **argv){
-    Menu main_menu("Main Menu", {
-            {"Admin", [](){}},
-            {"Employee", [](){}},
-            {"Customer", [](){}}
-            });
+    Bank bank;
+    bank.printBranches();
 
-    main_menu.draw();
 }
 
+/* Menu main_menu("Main Menu", { */
+/*     { */
+/*         "Admin",  */
+/*         [](){ */
+
+/*         } */
+/*     }, */
+/*     { */
+/*         "Employee",  */
+/*         [](){ */
+
+/*         } */
+/*     }, */
+/*     { */
+/*         "Customer",  */
+/*         [](){ */
+
+/*         } */
+/*     }, */
+/* }); */

@@ -1,8 +1,15 @@
 #ifndef BANK_H
 #define BANK_H
 
-class Bank {
+#include <set>
+#include "Branch.h"
 
+class Bank {
+    private:
+        std::set<Branch> branches;
+    public:
+        Bank();
+        void printBranches() const;
 };
 
 #endif
