@@ -26,8 +26,16 @@ void Employee::setNextID(int id){
     Employee::ID = id;
 }
 void Employee::print() const {
-    std::cout 
-        << id << "\n"
-        << login << std::endl;
+    std::cout
+        << "id : " << id << "\n"
+        << "branch_id : " << branch_id << "\n"
+        << "login: " << login << "\n"
+        << "passhash: " << passhash << "\n"
+        << "name: " << name << "\n"
+        << "phone: " << phone << "\n"
+        << "address: " << address.address << "\n"
+        << "email: " << email << "\n"
+        << "registration_date: " << registration_date << "\n"
+        << "position: " << position << std::endl;
 }
 

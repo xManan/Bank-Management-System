@@ -9,7 +9,7 @@ class Bank {
         std::set<Branch> branches;
     public:
         Bank();
-        void printBranches() const;
+        void print() const;
 };
 
 #endif

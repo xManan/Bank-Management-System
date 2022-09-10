@@ -29,10 +29,8 @@ Bank::Bank(){
     file.close();
 }
 
-void Bank::printBranches() const {
+void Bank::print() const {
     for(std::set<Branch>::const_iterator it = branches.begin(); it != branches.end(); ++it){
         it->print();
-        std::cout << "emp:\n";
-        it->printEmployees();
     }
 }
