@@ -20,7 +20,7 @@ Customer::Customer(
     Person(id, branch_id, login, passhash, name, phone, address, email, registration_date)
 {
     std::ifstream file(ACCOUNT_DATA_FILE);
-    // data is the format:
+    // data is in the format:
     // next ID
     // comma seperated values for account 1
     // comma seperated values for account 2
@@ -34,8 +34,11 @@ Customer::Customer(
     }
     while(std::getline(file,line)){
         std::vector<std::string> res = split_str(line,',');
-        int id = std::stoi(res[0]);
         int cust_id = std::stoi(res[1]);
+        if(this->id != cust_id){
+            continue;
+        }
+        int id = std::stoi(res[0]);
         int teller_id = std::stoi(res[2]);
         int branch_id = std::stoi(res[3]);
         time_t opening_date = std::stoul(res[4]);
@@ -46,7 +49,7 @@ Customer::Customer(
     }
     file.close();
 
-    // data is the format:
+    // data is in the format:
     // next ID
     // comma seperated values for loan 1
     // comma seperated values for loan 2
@@ -60,8 +63,11 @@ Customer::Customer(
     }
     while(std::getline(file,line)){
         std::vector<std::string> res = split_str(line,',');
-        int id = std::stoi(res[0]);
         int cust_id = std::stoi(res[1]);
+        if(this->id != cust_id){
+            continue;
+        }
+        int id = std::stoi(res[0]);
         int teller_id = std::stoi(res[2]);
         int branch_id = std::stoi(res[3]);
         time_t starting_date = std::stoul(res[4]);

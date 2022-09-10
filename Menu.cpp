@@ -34,7 +34,8 @@ void Menu::draw(){
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             continue;
         }
-        choices[c-1].action();
+        if(choices[c-1].action())
+            continue;
         std::cout << "\n\tPress ENTER to continue..." << std::flush;
             // ignore all input or if input is a \n
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

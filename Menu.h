@@ -7,7 +7,7 @@
 
 struct choice {
     std::string prompt;
-    std::function<void(void)> action;
+    std::function<bool(void)> action;
 };
 
 class Menu {

@@ -30,17 +30,9 @@ class Person {
             Address address, 
             std::string email, 
             time_t registration_date
-        ):
-            id(id),
-            branch_id(branch_id),
-            login(login),
-            passhash(passhash),
-            name(name),
-            phone(phone),
-            address(address),
-            email(email),
-            registration_date(registration_date)
-        {}
+        );
+        public: 
+            virtual bool authenticate(int branch_id=-1, std::string login="", std::string password="") const;
 };
 
 #endif

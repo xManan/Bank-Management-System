@@ -13,16 +13,16 @@ class Employee: public Person {
 
     public:
         Employee(
-            int id, 
-            int branch_id, 
-            std::string login, 
-            std::string passhash, 
-            std::string name, 
-            std::string phone, 
-            Address address, 
-            std::string email, 
-            time_t registration_date,
-            std::string position
+            int id=0, 
+            int branch_id=0, 
+            std::string login="", 
+            std::string passhash="", 
+            std::string name="", 
+            std::string phone="", 
+            Address address={"","","","",""}, 
+            std::string email="", 
+            time_t registration_date=time(0),
+            std::string position=""
         );
         // to insert it into a set<T>
         bool operator<(const Employee &e) const;

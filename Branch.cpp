@@ -12,7 +12,7 @@ Branch::Branch(int id, Address address, std::string phone, int manager_id):
     manager_id(manager_id)
 {
     std::ifstream file(EMPLOYEE_DATA_FILE);
-    // data is the format:
+    // data is in the format:
     // next ID
     // comma seperated values for employee 1
     // comma seperated values for employee 2
@@ -26,6 +26,10 @@ Branch::Branch(int id, Address address, std::string phone, int manager_id):
     }
     while(std::getline(file,line)){
         std::vector<std::string> res = split_str(line, ',');
+        int branch_id = std::stoi(res[13]);
+        if(this->id != branch_id){
+            continue;
+        }
         int id = std::stoi(res[0]);
         std::string login = res[1];
         std::string passhash = res[2];
@@ -35,13 +39,12 @@ Branch::Branch(int id, Address address, std::string phone, int manager_id):
         std::string email = res[10];
         time_t registration_date = std::stoul(res[11]);
         std::string position = res[12]; 
-        int branch_id = std::stoi(res[13]);
         Employee e(id, branch_id, login, passhash, name, phone, address, email, registration_date, position);
         employees.insert(e);
     }
     file.close();
 
-    // data is the format:
+    // data is in the format:
     // next ID
     // comma seperated values for customer 1
     // comma seperated values for customer 2
@@ -55,6 +58,10 @@ Branch::Branch(int id, Address address, std::string phone, int manager_id):
     }
     while(std::getline(file,line)){
         std::vector<std::string> res = split_str(line, ',');
+        int branch_id = std::stoi(res[12]);
+        if(this->id != branch_id){
+            continue;
+        }
         int id = std::stoi(res[0]);
         std::string login = res[1];
         std::string passhash = res[2];
@@ -63,9 +70,8 @@ Branch::Branch(int id, Address address, std::string phone, int manager_id):
         Address address = { res[5], res[6], res[7], res[8], res[9] };
         std::string email = res[10];
         time_t registration_date = std::stoul(res[11]);
-        int branch_id = std::stoi(res[12]);
-        Customer e(id, branch_id, login, passhash, name, phone, address, email, registration_date);
-        customers.insert(e);
+        Customer c(id, branch_id, login, passhash, name, phone, address, email, registration_date);
+        customers.insert(c);
     }
     file.close();
 
