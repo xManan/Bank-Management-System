@@ -12,6 +12,11 @@ Branch::Branch(int id, Address address, std::string phone, int manager_id):
     manager_id(manager_id)
 {
     std::ifstream file(EMPLOYEE_DATA_FILE);
+    // data is the format:
+    // next ID
+    // comma seperated values for employee 1
+    // comma seperated values for employee 2
+    // ...
     if(!file.is_open()){
         throw "could not open file!";
     }
@@ -36,6 +41,11 @@ Branch::Branch(int id, Address address, std::string phone, int manager_id):
     }
     file.close();
 
+    // data is the format:
+    // next ID
+    // comma seperated values for customer 1
+    // comma seperated values for customer 2
+    // ...
     file.open(CUSTOMER_DATA_FILE);
     if(!file.is_open()){
         throw "could not open file!";

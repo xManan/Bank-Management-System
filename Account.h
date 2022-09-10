@@ -13,6 +13,7 @@ class Account {
         double current_balance;
         double interest_rate;
 
+        // keeping track of id for next account
         static int ID;
     
     public:
@@ -23,8 +24,10 @@ class Account {
             int branch_id, 
             time_t opening_date, 
             double current_balance, 
+            // interest rate can be either 0 or >0 i.e. current or savings
             double interest_rate
         );
+        // to insert it into a set<T>
         bool operator<(const Account &a) const;
 
         static void setNextID(int id);

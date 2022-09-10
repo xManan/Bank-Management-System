@@ -14,6 +14,7 @@ class Loan {
         double amount;
         double interest_rate;
 
+        // keeping track of id for next account
         static int ID;
 
     public:
@@ -24,10 +25,12 @@ class Loan {
             int branch_id, 
             time_t starting_date, 
             time_t due_date, 
-            double current_balance, 
+            double amount, 
             double interest_rate
         );
+        // to insert it into a set<T>
         bool operator<(const Loan &a) const;
+
         static void setNextID(int id);
 
         void print() const;

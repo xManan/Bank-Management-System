@@ -10,7 +10,7 @@ Loan::Loan(
     int branch_id, 
     time_t starting_date, 
     time_t due_date, 
-    double current_balance, 
+    double amount, 
     double interest_rate
 ):
     id(id),
@@ -19,6 +19,7 @@ Loan::Loan(
     branch_id(branch_id),
     starting_date(starting_date), 
     due_date(due_date),
+    amount(amount),
     interest_rate(interest_rate)
 {}
 
@@ -35,8 +36,8 @@ void Loan::print() const {
         << "cust_id: " << cust_id << "\n"
         << "teller_id: " << teller_id << "\n"
         << "branch_id: " << branch_id << "\n"
-        << "starting_date: " << starting_date << "\n"
-        << "due_date: " << due_date << "\n"
+        << "starting_date: " << asctime(localtime(&starting_date)) << "\n"
+        << "due_date: " << asctime(localtime(&due_date)) << "\n"
         << "amount: " << amount << "\n"
         << "interest_rate: " << interest_rate << std::endl;
 }

@@ -7,7 +7,10 @@
 class Employee: public Person {
     private:
         std::string position;
+
+        // keeping track of id for next account
         static int ID;
+
     public:
         Employee(
             int id, 
@@ -21,6 +24,7 @@ class Employee: public Person {
             time_t registration_date,
             std::string position
         );
+        // to insert it into a set<T>
         bool operator<(const Employee &e) const;
 
         static void setNextID(int id);

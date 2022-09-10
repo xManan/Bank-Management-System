@@ -12,7 +12,9 @@ class Customer: public Person {
         std::set<Account> accounts;
         std::set<Loan> loans;
 
+        // keeping track of id for next account
         static int ID;
+
     public:
         Customer(
             int id, 
@@ -25,6 +27,7 @@ class Customer: public Person {
             std::string email, 
             time_t registration_date
         );
+        // to insert it into a set<T>
         bool operator<(const Customer &c) const;
 
         static void setNextID(int id);

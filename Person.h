@@ -20,17 +20,17 @@ class Person {
 
         time_t registration_date;
 
-       Person(
-               int id, 
-               int branch_id, 
-               std::string login, 
-               std::string passhash, 
-               std::string name, 
-               std::string phone, 
-               Address address, 
-               std::string email, 
-               time_t registration_date
-               ):
+        Person(
+            int id, 
+            int branch_id, 
+            std::string login, 
+            std::string passhash, 
+            std::string name, 
+            std::string phone, 
+            Address address, 
+            std::string email, 
+            time_t registration_date
+        ):
             id(id),
             branch_id(branch_id),
             login(login),
@@ -40,7 +40,7 @@ class Person {
             address(address),
             email(email),
             registration_date(registration_date)
-            {}
+        {}
 };
 
 #endif

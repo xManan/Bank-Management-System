@@ -9,10 +9,16 @@
 #include "config.h"
 
 Bank::Bank(){
+    // reading data from file when the contructor is called
     std::ifstream file(BRANCH_DATA_FILE);
     if(!file.is_open()){
         throw "could not open file!";
     }
+    // data is the format:
+    // next ID
+    // comma seperated values for branch 1
+    // comma seperated values for branch 2
+    // ...
     std::string line;
     if(std::getline(file, line)){
         Branch::setNextID(std::stoi(line));

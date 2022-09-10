@@ -6,6 +6,7 @@
 
 class Bank {
     private:
+        // using set to make sure only branches with unique ids are present
         std::set<Branch> branches;
     public:
         Bank();

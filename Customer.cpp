@@ -20,6 +20,11 @@ Customer::Customer(
     Person(id, branch_id, login, passhash, name, phone, address, email, registration_date)
 {
     std::ifstream file(ACCOUNT_DATA_FILE);
+    // data is the format:
+    // next ID
+    // comma seperated values for account 1
+    // comma seperated values for account 2
+    // ...
     if(!file.is_open()){
         throw "could not open file!";
     }
@@ -41,6 +46,11 @@ Customer::Customer(
     }
     file.close();
 
+    // data is the format:
+    // next ID
+    // comma seperated values for loan 1
+    // comma seperated values for loan 2
+    // ...
     file.open(LOAN_DATA_FILE);
     if(!file.is_open()){
         throw "could not open file!";
