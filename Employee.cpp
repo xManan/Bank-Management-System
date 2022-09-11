@@ -1,4 +1,5 @@
 #include "Employee.h"
+#include <sstream>
 
 int Employee::ID = 0;
 
@@ -21,8 +22,29 @@ bool Employee::operator<(const Employee &e) const {
     return (id < e.id);
 }
 
+int Employee::getNextID(){
+    return Employee::ID;
+}
 void Employee::setNextID(int id){
     Employee::ID = id;
+}
+std::string Employee::toCSV() const {
+    std::stringstream ss; 
+    ss 
+        << id << "," 
+        << passhash << "," 
+        << name << "," 
+        << phone << "," 
+        << address.address << "," 
+        << address.city << ","
+        << address.state << ","
+        << address.pincode << ","
+        << address.country << ","
+        << email << ","
+        << registration_date << ","
+        << position << ","
+        << branch_id;
+    return ss.str();
 }
 void Employee::print() const {
     std::cout

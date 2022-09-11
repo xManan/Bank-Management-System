@@ -1,5 +1,6 @@
 #include "Person.h"
 #include <iostream>
+#include <sstream>
 
 Person::Person(
     int id, 
@@ -21,6 +22,48 @@ Person::Person(
     registration_date(registration_date)
 {}
 
+int Person::getId() const {
+    return id;
+}
+int Person::getBranchId() const {
+    return branch_id;
+}
+std::string Person::getPasshash() const {
+    return passhash;
+}
+std::string Person::getName() const {
+    return name;
+}
+std::string Person::getPhone() const {
+    return phone;
+}
+Address Person::getAddress() const {
+    return address;
+}
+std::string Person::getEmail() const {
+    return email;
+}
+time_t Person::getRegistrationDate() const {
+    return registration_date;
+}
+
+std::string Person::toCSV() const {
+    std::stringstream ss; 
+    ss 
+        << id << "," 
+        << passhash << "," 
+        << name << "," 
+        << phone << "," 
+        << address.address << "," 
+        << address.city << ","
+        << address.state << ","
+        << address.pincode << ","
+        << address.country << ","
+        << email << ","
+        << registration_date << ","
+        << branch_id;
+    return ss.str();
+}
 
 void Person::print() const {
     std::cout
@@ -34,10 +77,10 @@ void Person::print() const {
         << "registration_date: " << registration_date << std::endl;
 }
 
-bool Person::authenticate(int branch_id, std::string password) const {
-    if(branch_id == -1){
-        std::cout << "\tBranch ID: ";
-        std::cin >> branch_id;
+bool Person::authenticate(int id, std::string password) const {
+    if(id == -1){
+        std::cout << "\tID: ";
+        std::cin >> id;
         std::cin.ignore();
     }
     if(password == ""){
@@ -45,5 +88,5 @@ bool Person::authenticate(int branch_id, std::string password) const {
         std::getline(std::cin,password);
         std::cout << "\x1b[0m";
     }
-    return (passhash == password);
+    return (this->id == id && passhash == password);
 }

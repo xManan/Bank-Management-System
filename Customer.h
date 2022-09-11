@@ -17,14 +17,14 @@ class Customer: public Person {
 
     public:
         Customer(
-            int id, 
-            int branch_id, 
-            std::string passhash, 
-            std::string name, 
-            std::string phone, 
-            Address address, 
-            std::string email, 
-            time_t registration_date
+            int id=0, 
+            int branch_id=0, 
+            std::string passhash=0, 
+            std::string name="", 
+            std::string phone="", 
+            Address address={"","","","",""}, 
+            std::string email="", 
+            time_t registration_date=time(0)
         );
         // to insert it into a set<T>
         bool operator<(const Customer &c) const;

@@ -62,3 +62,12 @@ void Bank::print() const {
 bool Bank::authenticate() const {
     return admin.authenticate(0);
 }
+
+Branch* Bank::findBranch(int id) const {
+    Branch b(id);
+    std::set<Branch>::const_iterator it = branches.find(b);
+    if(it == branches.end()){
+        return nullptr;
+    }
+    return const_cast<Branch*>(&(*it));
+}

@@ -31,7 +31,18 @@ class Person {
             time_t registration_date=time(0)
         );
         virtual void print() const;
-        virtual bool authenticate(int branch_id=-1, std::string password="") const;
+        virtual bool authenticate(int id=-1, std::string password="") const;
+        int getId() const;
+        int getBranchId() const;
+        std::string getPasshash() const;
+        std::string getName() const;
+        std::string getPhone() const;
+        Address getAddress() const;
+        std::string getEmail() const;
+        time_t getRegistrationDate() const;
+
+        virtual std::string toCSV() const;
+
 };
 
 #endif

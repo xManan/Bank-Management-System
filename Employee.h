@@ -27,6 +27,9 @@ class Employee: public Person {
         bool operator<(const Employee &e) const;
 
         static void setNextID(int id);
+        static int getNextID();
+
+        std::string toCSV() const; 
 
         void print() const;
 

@@ -13,6 +13,7 @@ class Bank {
         Bank();
         void print() const;
         bool authenticate() const;
+        Branch* findBranch(int id) const;
 };
 
 #endif

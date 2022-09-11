@@ -1,4 +1,6 @@
 #include <fstream>
+#include <limits>
+#include <sstream>
 #include "config.h"
 #include "Branch.h"
 #include "string.h"
@@ -78,9 +80,59 @@ Branch::Branch(int id, Address address, std::string phone, int manager_id):
 bool Branch::operator<(const Branch &b) const {
     return (id < b.id);
 }
-
+int Branch::getId() const {
+    return id;
+}
 void Branch::setNextID(int id){
     Branch::ID = id;
+}
+
+bool Branch::authenticateEmployee(int emp_id) const {
+    if(emp_id == 0){
+        std::cout << "\tEmployee ID: ";
+        std::cin >> emp_id;
+        std::cin.ignore();
+    }
+    Employee e(emp_id);
+    std::set<Employee>::const_iterator it = employees.find(e);
+    if(it == employees.end()){
+        std::cout << "\tPassword: \x1b[8m";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "\x1b[0m";
+        return false;
+    }
+    return it->authenticate(emp_id);
+    
+
+}
+
+bool Branch::authenticateCustomer(int cust_id) const {
+    if(cust_id == 0){
+        std::cout << "\tEmployee ID: ";
+        std::cin >> cust_id;
+        std::cin.ignore();
+    }
+    Customer c(cust_id);
+    std::set<Customer>::const_iterator it = customers.find(c);
+    if(it == customers.end()){
+        std::cout << "\tPassword: \x1b[8m";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "\x1b[0m";
+        return false;
+    }
+    return it->authenticate(cust_id);
+}
+
+Employee* Branch::findEmployee(int emp_id) const {
+    std::set<Employee>::iterator it = employees.find(emp_id);
+    if(it == employees.end()){
+        return nullptr;
+    }
+    return const_cast<Employee*>(&(*it));
+}
+
+bool Branch::isManager(int emp_id) const {
+    return (emp_id == this->manager_id);
 }
 
 void Branch::print() const {
@@ -99,4 +151,23 @@ void Branch::print() const {
         it->print();
         std::cout << "\n";
     }
+}
+
+void Branch::updateEmpData() const {
+    std::ofstream file(EMPLOYEE_DATA_FILE);
+    if(!file.is_open()){
+        throw "could not open file!";
+    }
+    std::stringstream ss;
+    ss << Employee::getNextID() << "\n";
+     for (std::set<Employee>::const_iterator it=employees.begin(); it!=employees.end(); ++it) {
+        ss << it->toCSV() << "\n";
+    }
+    file.write(ss.str().c_str(), ss.str().length());
+    file.close();
+}
+
+void Branch::addEmployee(Employee e) {
+    employees.insert(e);
+    updateEmpData();
 }

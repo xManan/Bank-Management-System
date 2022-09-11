@@ -27,12 +27,21 @@ class Branch {
         static int ID;
 
     public:
-        Branch(int id, Address address, std::string phone, int manager_id);
+        Branch(int id=0, Address address={"","","","",""}, std::string phone="", int manager_id=0);
 
         // to insert it into a set<T>
         bool operator<(const Branch &b) const ;
 
+        int getId() const;
         static void setNextID(int id);
+
+        bool authenticateEmployee(int emp_id=0) const;
+        bool authenticateCustomer(int cust_id=0) const;
+
+        Employee* findEmployee(int emp_id) const;
+        void addEmployee(Employee e);
+        void updateEmpData() const;
+        bool isManager(int emp_id) const;
 
         void print() const;
 };
