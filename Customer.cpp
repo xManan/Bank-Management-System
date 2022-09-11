@@ -9,7 +9,6 @@ int Customer::ID = 0;
 Customer::Customer(
     int id, 
     int branch_id, 
-    std::string login, 
     std::string passhash, 
     std::string name, 
     std::string phone, 
@@ -17,7 +16,7 @@ Customer::Customer(
     std::string email, 
     time_t registration_date
 ):
-    Person(id, branch_id, login, passhash, name, phone, address, email, registration_date)
+    Person(id, branch_id, passhash, name, phone, address, email, registration_date)
 {
     std::ifstream file(ACCOUNT_DATA_FILE);
     // data is in the format:
@@ -92,7 +91,6 @@ void Customer::print() const {
     std::cout
         << "id : " << id << "\n"
         << "branch_id : " << branch_id << "\n"
-        << "login: " << login << "\n"
         << "passhash: " << passhash << "\n"
         << "name: " << name << "\n"
         << "phone: " << phone << "\n"

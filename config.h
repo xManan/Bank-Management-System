@@ -7,6 +7,7 @@
 #define TRANSACTION_DATA_FILE "data/transaction.csv"
 #define ACCOUNT_DATA_FILE "data/account.csv"
 #define LOAN_DATA_FILE "data/loan.csv"
+#define ADMIN_DATA_FILE "data/admin.csv"
 
 #endif
 

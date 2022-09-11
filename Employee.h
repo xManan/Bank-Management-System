@@ -15,7 +15,6 @@ class Employee: public Person {
         Employee(
             int id=0, 
             int branch_id=0, 
-            std::string login="", 
             std::string passhash="", 
             std::string name="", 
             std::string phone="", 

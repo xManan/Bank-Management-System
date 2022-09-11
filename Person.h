@@ -10,7 +10,6 @@ class Person {
         int id;
         int branch_id;
 
-        std::string login;
         std::string passhash;
 
         std::string name;
@@ -20,19 +19,19 @@ class Person {
 
         time_t registration_date;
 
+    public: 
         Person(
-            int id, 
-            int branch_id, 
-            std::string login, 
-            std::string passhash, 
-            std::string name, 
-            std::string phone, 
-            Address address, 
-            std::string email, 
-            time_t registration_date
+            int id=0, 
+            int branch_id=0, 
+            std::string passhash="", 
+            std::string name="", 
+            std::string phone="", 
+            Address address={"","","","",""}, 
+            std::string email="", 
+            time_t registration_date=time(0)
         );
-        public: 
-            virtual bool authenticate(int branch_id=-1, std::string login="", std::string password="") const;
+        virtual void print() const;
+        virtual bool authenticate(int branch_id=-1, std::string password="") const;
 };
 
 #endif

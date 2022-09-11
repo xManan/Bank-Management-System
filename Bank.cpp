@@ -11,23 +11,20 @@
 
 Bank::Bank(){
     // reading data from file when the contructor is called
-    std::ifstream file(EMPLOYEE_DATA_FILE);
+    std::ifstream file(ADMIN_DATA_FILE);
     std::string line;
-    file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::getline(file, line);
     std::vector<std::string> res = split_str(line, ',');
-    int branch_id = std::stoi(res[13]);
+    int branch_id = std::stoi(res[11]);
     int id = std::stoi(res[0]);
-    std::string login = res[1];
-    std::string passhash = res[2];
-    std::string name = res[3];
-    std::string phone = res[4];
-    Address address = { res[5], res[6], res[7], res[8], res[9] };
-    std::string email = res[10];
-    time_t registration_date = std::stoul(res[11]);
-    std::string position = res[12]; 
-    Employee e(id, branch_id, login, passhash, name, phone, address, email, registration_date, position);
-    admin = e;
+    std::string passhash = res[1];
+    std::string name = res[2];
+    std::string phone = res[3];
+    Address address = { res[4], res[5], res[6], res[7], res[8] };
+    std::string email = res[9];
+    time_t registration_date = std::stoul(res[10]);
+    Person p(id, branch_id, passhash, name, phone, address, email, registration_date);
+    admin = p;
     file.close();
 
     file.open(BRANCH_DATA_FILE);

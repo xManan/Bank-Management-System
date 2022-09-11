@@ -7,6 +7,7 @@ using namespace std;
 
 int main(int argc, char **argv){
     Bank bank;
+    /* bank.print(); */
     Menu admin_menu("Admin Menu", {
         {
             "Add Branch", 

@@ -1,0 +1,11 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "main.cpp"
+    ],
+    "directory": "/home/manan/study/pa/projects/bank_management_system",
+    "file": "/home/manan/study/pa/projects/bank_management_system/main.cpp"
+  }
+]

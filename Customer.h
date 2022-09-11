@@ -19,7 +19,6 @@ class Customer: public Person {
         Customer(
             int id, 
             int branch_id, 
-            std::string login, 
             std::string passhash, 
             std::string name, 
             std::string phone, 
