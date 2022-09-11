@@ -1,3 +1,4 @@
 main
 *.o
 data/
+compile_commands.json
