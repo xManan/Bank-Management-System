@@ -1,10 +1,12 @@
 #include "Bank.h"
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <limits>
+#include <sstream>
 #include "Branch.h"
 #include "string.h"
 #include "config.h"
@@ -70,4 +72,43 @@ Branch* Bank::findBranch(int id) const {
         return nullptr;
     }
     return const_cast<Branch*>(&(*it));
+}
+
+void Bank::updateBranchData() const {
+    std::ofstream file(BRANCH_DATA_FILE);
+    if(!file.is_open()){
+        throw "could not open file!";
+    }
+    std::stringstream ss;
+    ss << Branch::getNextID() << "\n";
+    for (std::set<Branch>::const_iterator it=branches.begin(); it!=branches.end(); ++it) {
+        ss << it->toCSV() << "\n";
+    }
+    file.write(ss.str().c_str(), ss.str().length());
+    file.close();
+}
+
+void Bank::addBranch(Branch b){
+    branches.insert(b);
+    /* updateBranchData(); */
+}
+void Bank::deleteBranch(Branch b){
+    branches.erase(b);
+}
+void Bank::display() const {
+    int w[BRANCH_N] = { 5, 12, 30, 15, 15, 15, 15, 15 };
+    std::cout << "\n\t"
+        << std::left << std::setw(w[0]) << "ID" 
+        << std::left << std::setw(w[1]) << "MANAGER ID" 
+        << std::left << std::setw(w[2]) << "ADDRESS" 
+        << std::left << std::setw(w[3]) << "CITY" 
+        << std::left << std::setw(w[4]) << "STATE"
+        << std::left << std::setw(w[5]) << "PINCODE"
+        << std::left << std::setw(w[6]) << "COUNTRY"
+        << std::left << std::setw(w[7]) << "PHONE\n" << std::endl; 
+    for (std::set<Branch>::const_iterator it=branches.begin(); it!=branches.end(); ++it) {
+        std::cout << "\t";
+        it->display(w);
+        std::cout << "\n";
+    }
 }

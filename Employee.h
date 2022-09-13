@@ -4,6 +4,8 @@
 #include "Person.h"
 #include <iostream>
 
+#define EMPLOYEE_N 7
+
 class Employee: public Person {
     private:
         std::string position;
@@ -32,6 +34,7 @@ class Employee: public Person {
         std::string toCSV() const; 
 
         void print() const;
+        void display(int w[EMPLOYEE_N]) const;
 
 };
 

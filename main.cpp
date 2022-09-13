@@ -20,72 +20,121 @@ int main(int argc, char **argv){
                     {
                         "Add Branch", 
                         [&]()->bool{
+                            int id = Branch::getNextID();
+                            Branch::setNextID(id+1);
+                            Address address;
+                            string phone;
+                            cout << "\tPhone: ";
+                            getline(cin, phone);
+                            cout << "\tAddress: ";
+                            getline(cin, address.address);
+                            cout << "\tCity: ";
+                            getline(cin, address.city);
+                            cout << "\tState: ";
+                            getline(cin, address.state);
+                            cout << "\tPincode: ";
+                            getline(cin, address.pincode);
+                            cout << "\tCountry: ";
+                            getline(cin, address.country);
+                            Branch b(id, address, phone);
+                            bank.addBranch(b);
+                            bank.updateBranchData();
                             return false;
                         }
                     },
                     {
                         "Modify Branch", 
                         [&]()->bool{
+                            int branch_id;
+                            cout << "\tBranch ID: ";
+                            cin >> branch_id;
+                            cin.ignore();
+                            Branch *b = bank.findBranch(branch_id);
+                            if(b == nullptr){
+                                cout << "\t\nBranch Not found!\n";
+                                return true;
+                            }
+                            cout << "\t\nPress ENTER to skip" << endl;
+                            Address address;
+                            string phone;
+                            cout << "\tPhone (" << b->getPhone() << "): ";
+                            getline(cin, phone);
+                            cout << "\tAddress (" << b->getAddress().address << "): ";
+                            getline(cin, address.address);
+                            cout << "\tCity (" << b->getAddress().city << "): ";
+                            getline(cin, address.city);
+                            cout << "\tState (" << b->getAddress().state << "): ";
+                            getline(cin, address.state);
+                            cout << "\tPincode (" << b->getAddress().pincode << "): ";
+                            getline(cin, address.pincode);
+                            cout << "\tCountry (" << b->getAddress().country << "): ";
+                            getline(cin, address.country);
+                            b->update(address, phone);
                             return false;
+                        }
+                    },
+                    {
+                        "Change Branch Manager",
+                        [&]()->bool{
+                            int branch_id;
+                            cout << "\tBranch ID: ";
+                            cin >> branch_id;
+                            cin.ignore();
+                            Branch *b = bank.findBranch(branch_id);
+                            if(b == nullptr){
+                                cout << "\t\nBranch Not found!\n";
+                                return true;
+                            }
+                            int mng_id;
+                            cout << "\tEmployee Id: ";
+                            cin >> mng_id;
+                            cin.ignore();
+                            Employee *e = b->findEmployee(mng_id);
+                            if(e == nullptr){
+                                cout << "\n\tEmployee Not found!\n";
+                                return false;
+                            }
+                            cout << e->getId() << endl;
+                            b->setManagerId(mng_id);
+                            return true;
                         }
                     },
                     {
                         "Delete Branch", 
                         [&]()->bool{
+                            int branch_id;
+                            cout << "\tBranch ID: ";
+                            cin >> branch_id;
+                            cin.ignore();
+                            Branch *b = bank.findBranch(branch_id);
+                            if(b == nullptr){
+                                cout << "\t\nBranch Not found!\n";
+                                return true;
+                            }
+                            bank.deleteBranch(*b);
                             return false;
                         }
                     },
                     {
                         "List Branches", 
                         [&]()->bool{
+                            bank.display();
                             return false;
                         }
                     },
                     {
-                        "Add Employee", 
+                        "List Branch Employees", 
                         [&]()->bool{
-                            return false;
-                        }
-                    },
-                    {
-                        "Modify Employee", 
-                        [&]()->bool{
-                            return false;
-                        }
-                    },
-                    {
-                        "Delete Employee", 
-                        [&]()->bool{
-                            return false;
-                        }
-                    },
-                    {
-                        "List Employees", 
-                        [&]()->bool{
-                            return false;
-                        }
-                    },
-                    {
-                        "Add Customer", 
-                        [&]()->bool{
-                            return false;
-                        }
-                    },
-                    {
-                        "Modify Customer", 
-                        [&]()->bool{
-                            return false;
-                        }
-                    },
-                    {
-                        "Delete Customer", 
-                        [&]()->bool{
-                            return false;
-                        }
-                    },
-                    {
-                        "List Customers", 
-                        [&]()->bool{
+                            int branch_id;
+                            cout << "\tBranch ID: ";
+                            cin >> branch_id;
+                            cin.ignore();
+                            Branch *b = bank.findBranch(branch_id);
+                            if(b == nullptr){
+                                cout << "\t\nBranch Not found!\n";
+                                return true;
+                            }
+                            b->displayEmployees();
                             return false;
                         }
                     },
@@ -191,6 +240,7 @@ int main(int argc, char **argv){
                                 getline(cin,passhash);
                                 Employee e(id,branch_id,passhash,name,phone,address,email,registration_date,position);
                                 res->addEmployee(e);
+                                res->updateEmpData();
                                 cout << "\n\tEmployee with emp_id : " << id <<  " Succesfully Added\n";
                                 return false;
                             }

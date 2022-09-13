@@ -14,6 +14,10 @@ class Bank {
         void print() const;
         bool authenticate() const;
         Branch* findBranch(int id) const;
+        void addBranch(Branch b);
+        void deleteBranch(Branch b);
+        void updateBranchData() const;
+        void display() const;
 };
 
 #endif

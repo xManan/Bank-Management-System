@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iomanip>
 #include <limits>
 #include <sstream>
 #include "config.h"
@@ -83,8 +84,39 @@ bool Branch::operator<(const Branch &b) const {
 int Branch::getId() const {
     return id;
 }
+std::string Branch::getPhone() const {
+    return phone;
+}
+Address Branch::getAddress() const {
+    return address;
+}
+int Branch::getManagerId() const {
+    return manager_id;
+}
 void Branch::setNextID(int id){
     Branch::ID = id;
+}
+int Branch::getNextID(){
+    return Branch::ID;
+}
+
+void Branch::update(Address address, std::string phone){
+    if(address.address != "")
+        this->address.address = address.address;
+    if(address.city != "")
+        this->address.city = address.city;
+    if(address.state != "")
+        this->address.state = address.state;
+    if(address.pincode != "")
+        this->address.pincode = address.pincode;
+    if(address.country != "")
+        this->address.country = address.country;
+    if(phone != "")
+        this->phone = phone;
+}
+
+void Branch::setManagerId(int id){
+    this->manager_id = id;
 }
 
 bool Branch::authenticateEmployee(int emp_id) const {
@@ -135,6 +167,20 @@ bool Branch::isManager(int emp_id) const {
     return (emp_id == this->manager_id);
 }
 
+std::string Branch::toCSV() const {
+    std::stringstream ss; 
+    ss 
+        << id << "," 
+        << address.address << "," 
+        << address.city << ","
+        << address.state << ","
+        << address.pincode << ","
+        << address.country << ","
+        << phone << ","
+        << manager_id;
+    return ss.str();
+}
+
 void Branch::print() const {
     std::cout 
         << "id: " << id << "\n" 
@@ -169,5 +215,33 @@ void Branch::updateEmpData() const {
 
 void Branch::addEmployee(Employee e) {
     employees.insert(e);
-    updateEmpData();
+    /* updateEmpData(); */
+}
+void Branch::display(int w[BRANCH_N]) const {
+        std::cout 
+            << std::left << std::setw(w[0]) << id 
+            << std::left << std::setw(w[1]) << manager_id
+            << std::left << std::setw(w[2]) << address.address 
+            << std::left << std::setw(w[3]) << address.city 
+            << std::left << std::setw(w[4]) << address.state
+            << std::left << std::setw(w[5]) << address.pincode
+            << std::left << std::setw(w[6]) << address.country
+            << std::left << std::setw(w[7]) << phone; 
+}
+
+void Branch::displayEmployees() const {
+    int w[EMPLOYEE_N] = { 5, 10, 15, 15, 25, 30, 15 };
+    std::cout << "\n\t"
+        << std::left << std::setw(w[0]) << "ID" 
+        << std::left << std::setw(w[1]) << "BRANCH ID" 
+        << std::left << std::setw(w[2]) << "NAME" 
+        << std::left << std::setw(w[3]) << "PHONE" 
+        << std::left << std::setw(w[4]) << "EMAIL" 
+        << std::left << std::setw(w[5]) << "REGISTRATION DATE" 
+        << std::left << std::setw(w[6]) << "POSITION\n" << std::endl; 
+    for (std::set<Employee>::const_iterator it=employees.begin(); it!=employees.end(); ++it) {
+        std::cout << "\t";
+        it->display(w);
+        std::cout << "\n";
+    }
 }

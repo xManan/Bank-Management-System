@@ -11,6 +11,8 @@
 #include "Transaction.h"
 #include "Address.h"
 
+#define BRANCH_N 8
+
 class Branch {
     private:
         int id;
@@ -33,8 +35,14 @@ class Branch {
         bool operator<(const Branch &b) const ;
 
         int getId() const;
+        std::string getPhone() const;
+        Address getAddress() const;
+        int getManagerId() const;
+        void setManagerId(int id);
+        void update(Address address, std::string phone);
         static void setNextID(int id);
-
+        static int getNextID();
+        std::string toCSV() const;
         bool authenticateEmployee(int emp_id=0) const;
         bool authenticateCustomer(int cust_id=0) const;
 
@@ -42,8 +50,10 @@ class Branch {
         void addEmployee(Employee e);
         void updateEmpData() const;
         bool isManager(int emp_id) const;
-
+        
         void print() const;
+        void display(int w[BRANCH_N]) const;
+        void displayEmployees() const;
 };
 
 #endif

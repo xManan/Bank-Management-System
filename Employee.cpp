@@ -1,4 +1,5 @@
 #include "Employee.h"
+#include <iomanip>
 #include <sstream>
 
 int Employee::ID = 0;
@@ -59,3 +60,15 @@ void Employee::print() const {
         << "position: " << position << std::endl;
 }
 
+void Employee::display(int w[EMPLOYEE_N]) const {
+    char buffer[12];
+    strftime(buffer,11,"%d-%m-%Y", localtime(&registration_date));
+    std::cout
+        << std::left << std::setw(w[0]) << id 
+        << std::left << std::setw(w[1]) << branch_id 
+        << std::left << std::setw(w[2]) << name 
+        << std::left << std::setw(w[3]) << phone 
+        << std::left << std::setw(w[4]) << email 
+        << std::left << std::setw(w[5]) << buffer
+        << std::left << std::setw(w[6]) << position; 
+}
