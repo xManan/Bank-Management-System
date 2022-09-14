@@ -1,6 +1,8 @@
 #include "config.h"
 #include "string.h"
 #include "Customer.h"
+#include <iomanip>
+#include <sstream>
 #include <fstream>
 #include <iostream>
 
@@ -86,6 +88,26 @@ bool Customer::operator<(const Customer &c) const {
 void Customer::setNextID(int id){
     Customer::ID = id;
 }
+int Customer::getNextID(){
+    return Customer::ID;
+}
+
+std::string Customer::toCSV() const {
+    std::stringstream ss;
+    ss 
+        << id << "," 
+        << passhash << "," 
+        << name << ","
+        << phone << ","
+        << address.address << ","
+        << address.city << ","
+        << address.state << ","
+        << address.pincode << ","
+        << address.country << ","
+        << registration_date << ","
+        << branch_id;
+    return ss.str();
+}
 
 void Customer::print() const {
     std::cout
@@ -109,3 +131,14 @@ void Customer::print() const {
     }
 }
 
+void Customer::display(int w[CUSTOMER_N]) const {
+    char buffer[12];
+    strftime(buffer,11,"%d-%m-%Y", localtime(&registration_date));
+    std::cout
+        << std::left << std::setw(w[0]) << id 
+        << std::left << std::setw(w[1]) << branch_id 
+        << std::left << std::setw(w[2]) << name 
+        << std::left << std::setw(w[3]) << phone 
+        << std::left << std::setw(w[4]) << email 
+        << std::left << std::setw(w[5]) << buffer;
+}

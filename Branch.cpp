@@ -101,17 +101,17 @@ int Branch::getNextID(){
 }
 
 void Branch::update(Address address, std::string phone){
-    if(address.address != "")
+    if(trim_str(address.address).length() != 0)
         this->address.address = address.address;
-    if(address.city != "")
+    if(trim_str(address.city).length() != 0)
         this->address.city = address.city;
-    if(address.state != "")
+    if(trim_str(address.state).length() != 0)
         this->address.state = address.state;
-    if(address.pincode != "")
+    if(trim_str(address.pincode).length() != 0)
         this->address.pincode = address.pincode;
-    if(address.country != "")
+    if(trim_str(address.country).length() != 0)
         this->address.country = address.country;
-    if(phone != "")
+    if(trim_str(phone).length() != 0)
         this->phone = phone;
 }
 
@@ -125,8 +125,8 @@ bool Branch::authenticateEmployee(int emp_id) const {
         std::cin >> emp_id;
         std::cin.ignore();
     }
-    Employee e(emp_id);
-    std::set<Employee>::const_iterator it = employees.find(e);
+    /* Employee e(emp_id); */
+    std::set<Employee>::const_iterator it = employees.find(emp_id);
     if(it == employees.end()){
         std::cout << "\tPassword: \x1b[8m";
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -144,8 +144,8 @@ bool Branch::authenticateCustomer(int cust_id) const {
         std::cin >> cust_id;
         std::cin.ignore();
     }
-    Customer c(cust_id);
-    std::set<Customer>::const_iterator it = customers.find(c);
+    /* Customer c(cust_id); */
+    std::set<Customer>::const_iterator it = customers.find(cust_id);
     if(it == customers.end()){
         std::cout << "\tPassword: \x1b[8m";
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -161,6 +161,14 @@ Employee* Branch::findEmployee(int emp_id) const {
         return nullptr;
     }
     return const_cast<Employee*>(&(*it));
+}
+
+Customer* Branch::findCustomer(int cust_id) const {
+    std::set<Customer>::iterator it = customers.find(cust_id);
+    if(it == customers.end()){
+        return nullptr;
+    }
+    return const_cast<Customer*>(&(*it));
 }
 
 bool Branch::isManager(int emp_id) const {
@@ -213,8 +221,25 @@ void Branch::updateEmpData() const {
     file.close();
 }
 
+void Branch::updateCustData() const {
+    std::ofstream file(CUSTOMER_DATA_FILE);
+    if(!file.is_open()){
+        throw "could not open file!";
+    }
+    std::stringstream ss;
+    ss << Customer::getNextID() << "\n";
+     for (std::set<Customer>::const_iterator it=customers.begin(); it!=customers.end(); ++it) {
+        ss << it->toCSV() << "\n";
+    }
+    file.write(ss.str().c_str(), ss.str().length());
+    file.close();
+}
 void Branch::addEmployee(Employee e) {
     employees.insert(e);
+    /* updateEmpData(); */
+}
+void Branch::addCustomer(Customer c) {
+    customers.insert(c);
     /* updateEmpData(); */
 }
 void Branch::display(int w[BRANCH_N]) const {
@@ -240,6 +265,22 @@ void Branch::displayEmployees() const {
         << std::left << std::setw(w[5]) << "REGISTRATION DATE" 
         << std::left << std::setw(w[6]) << "POSITION\n" << std::endl; 
     for (std::set<Employee>::const_iterator it=employees.begin(); it!=employees.end(); ++it) {
+        std::cout << "\t";
+        it->display(w);
+        std::cout << "\n";
+    }
+}
+
+void Branch::displayCustomers() const {
+    int w[CUSTOMER_N] = { 5, 10, 15, 15, 25, 30 };
+    std::cout << "\n\t"
+        << std::left << std::setw(w[0]) << "ID" 
+        << std::left << std::setw(w[1]) << "BRANCH ID" 
+        << std::left << std::setw(w[2]) << "NAME" 
+        << std::left << std::setw(w[3]) << "PHONE" 
+        << std::left << std::setw(w[4]) << "EMAIL" 
+        << std::left << std::setw(w[5]) << "REGISTRATION DATE\n" << std::endl;
+    for (std::set<Customer>::const_iterator it=customers.begin(); it!=customers.end(); ++it) {
         std::cout << "\t";
         it->display(w);
         std::cout << "\n";

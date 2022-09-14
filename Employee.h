@@ -35,6 +35,7 @@ class Employee: public Person {
 
         void print() const;
         void display(int w[EMPLOYEE_N]) const;
+        void update(std::string branch_id, Address address, std::string phone, std::string email, std::string position);
 
 };
 

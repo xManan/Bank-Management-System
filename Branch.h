@@ -51,9 +51,15 @@ class Branch {
         void updateEmpData() const;
         bool isManager(int emp_id) const;
         
+        Customer* findCustomer(int cust_id) const;
+        void addCustomer(Customer e);
+        void updateCustData() const;
+
         void print() const;
         void display(int w[BRANCH_N]) const;
+
         void displayEmployees() const;
+        void displayCustomers() const;
 };
 
 #endif

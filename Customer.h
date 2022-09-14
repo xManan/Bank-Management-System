@@ -7,6 +7,8 @@
 #include "Account.h"
 #include "Loan.h"
 
+#define CUSTOMER_N 6
+
 class Customer: public Person {
     private:
         std::set<Account> accounts;
@@ -30,8 +32,12 @@ class Customer: public Person {
         bool operator<(const Customer &c) const;
 
         static void setNextID(int id);
+        static int getNextID();
+
+        std::string toCSV() const;
 
         void print() const;
+        void display(int w[CUSTOMER_N]) const;
 
 };
 

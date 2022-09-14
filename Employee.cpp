@@ -1,4 +1,5 @@
 #include "Employee.h"
+#include "string.h"
 #include <iomanip>
 #include <sstream>
 
@@ -71,4 +72,21 @@ void Employee::display(int w[EMPLOYEE_N]) const {
         << std::left << std::setw(w[4]) << email 
         << std::left << std::setw(w[5]) << buffer
         << std::left << std::setw(w[6]) << position; 
+}
+
+void Employee::update(std::string branch_id, Address address, std::string phone, std::string email, std::string position){
+    if(trim_str(branch_id).length() != 0)
+        this->branch_id = std::stoi(branch_id);
+    if(trim_str(address.address).length() != 0)
+        this->address.address = address.address;
+    if(trim_str(address.city).length() != 0)
+        this->address.city = address.city;
+    if(trim_str(address.state).length() != 0)
+        this->address.state = address.state;
+    if(trim_str(address.pincode).length() != 0)
+        this->address.pincode = address.pincode;
+    if(trim_str(address.country).length() != 0)
+        this->address.country = address.country;
+    if(trim_str(phone).length() != 0)
+        this->phone = phone;
 }

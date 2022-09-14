@@ -66,8 +66,8 @@ bool Bank::authenticate() const {
 }
 
 Branch* Bank::findBranch(int id) const {
-    Branch b(id);
-    std::set<Branch>::const_iterator it = branches.find(b);
+    /* Branch b(id); */
+    std::set<Branch>::const_iterator it = branches.find(id);
     if(it == branches.end()){
         return nullptr;
     }
