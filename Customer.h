@@ -38,6 +38,7 @@ class Customer: public Person {
 
         void print() const;
         void display(int w[CUSTOMER_N]) const;
+        void update(std::string branch_id, Address address, std::string phone, std::string email);
 
 };
 

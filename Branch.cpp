@@ -279,7 +279,7 @@ void Branch::displayCustomers() const {
         << std::left << std::setw(w[2]) << "NAME" 
         << std::left << std::setw(w[3]) << "PHONE" 
         << std::left << std::setw(w[4]) << "EMAIL" 
-        << std::left << std::setw(w[5]) << "REGISTRATION DATE\n" << std::endl;
+        << std::left << std::setw(w[5]) << "REGISTRATION DATE\n" << std::endl; 
     for (std::set<Customer>::const_iterator it=customers.begin(); it!=customers.end(); ++it) {
         std::cout << "\t";
         it->display(w);

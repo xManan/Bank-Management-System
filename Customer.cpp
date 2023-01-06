@@ -106,6 +106,7 @@ std::string Customer::toCSV() const {
         << address.country << ","
         << registration_date << ","
         << branch_id;
+    std::cout << ss.str();
     return ss.str();
 }
 
@@ -141,4 +142,22 @@ void Customer::display(int w[CUSTOMER_N]) const {
         << std::left << std::setw(w[3]) << phone 
         << std::left << std::setw(w[4]) << email 
         << std::left << std::setw(w[5]) << buffer;
+}
+void Customer::update(std::string branch_id, Address address, std::string phone, std::string email){
+    if(trim_str(branch_id).length() != 0)
+        this->branch_id = std::stoi(branch_id);
+    if(trim_str(address.address).length() != 0)
+        this->address.address = address.address;
+    if(trim_str(address.city).length() != 0)
+        this->address.city = address.city;
+    if(trim_str(address.state).length() != 0)
+        this->address.state = address.state;
+    if(trim_str(address.pincode).length() != 0)
+        this->address.pincode = address.pincode;
+    if(trim_str(address.country).length() != 0)
+        this->address.country = address.country;
+    if(trim_str(phone).length() != 0)
+        this->phone = phone;
+    if(trim_str(email).length() != 0)
+        this->email = email;
 }

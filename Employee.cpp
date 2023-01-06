@@ -89,4 +89,8 @@ void Employee::update(std::string branch_id, Address address, std::string phone,
         this->address.country = address.country;
     if(trim_str(phone).length() != 0)
         this->phone = phone;
+    if(trim_str(email).length() != 0)
+        this->email = email;
+    if(trim_str(position).length() != 0)
+        this->position = phone;
 }

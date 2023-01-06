@@ -268,6 +268,35 @@ int main(int argc, char **argv){
                     {
                         "Modify Customer",
                         [&]()->bool{
+                            int id;
+                            cout << "\tCustomer ID: ";
+                            cin >> id;
+                            cin.ignore();
+                            Customer *c = res->findCustomer(id);
+                            if(c == nullptr){
+                                cout << "\t\nCustomer Not found!\n";
+                                return true;
+                            }
+                            cout << "\n\tPress ENTER to skip" << endl;
+                            string branch_id;
+                            string phone;
+                            Address address;
+                            string email;
+                            cout << "\tBranch ID (" << c->getBranchId() << "): ";
+                            getline(cin, phone);
+                            cout << "\tPhone (" << c->getPhone() << "): ";
+                            getline(cin, phone);
+                            cout << "\tAddress (" << c->getAddress().address << "): ";
+                            getline(cin, address.address);
+                            cout << "\tCity (" << c->getAddress().city << "): ";
+                            getline(cin, address.city);
+                            cout << "\tState (" << c->getAddress().state << "): ";
+                            getline(cin, address.state);
+                            cout << "\tPincode (" << c->getAddress().pincode << "): ";
+                            getline(cin, address.pincode);
+                            cout << "\tCountry (" << c->getAddress().country << "): ";
+                            getline(cin, address.country);
+                            c->update(branch_id, address, phone, email);
                             return false;
                         }
                     },
